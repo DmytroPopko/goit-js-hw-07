@@ -3,10 +3,13 @@ import { galleryItems } from './gallery-items.js';
 function makeGallery() {
   const galleryContainer = document.querySelector('.gallery');
   const cardsMarkup = createGallery(galleryItems);
-  let instance = undefined;
 
   galleryContainer.insertAdjacentHTML('beforeend', cardsMarkup);
-  galleryContainer.addEventListener('click', onGalleryContainerClick);
+
+  new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',
+    captionDelay: 250,
+  });
 
   function createGallery(galleryItems) {
     return galleryItems
@@ -20,16 +23,6 @@ function makeGallery() {
         `;
       })
       .join('');
-  }
-
-  function onGalleryContainerClick(evt) {
-    evt.preventDefault();
-
-    let gallery = new SimpleLightbox('.gallery a', {
-      captionsData: 'alt',
-      captionDelay: 250,
-    });
-    gallery.on('show.simplelightbox', function () {});
   }
 }
 makeGallery();
